@@ -16,10 +16,19 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import de.p72b.coincollection.R
 
 @Composable
-fun DashboardPage(modifier: Modifier = Modifier, viewModel: DashboardViewModel = koinViewModel()) {
+fun DashboardPage(
+    modifier: Modifier = Modifier,
+    viewModel: DashboardViewModel = koinViewModel()
+) {
     val items by viewModel.uiState.collectAsStateWithLifecycle()
     when (items) {
         DashboardUIState.Loading -> LoadingSimulationScreen(modifier)
+        is DashboardUIState.DashboardData -> DashboardDataScreen(
+            modifier,
+            items as DashboardUIState.DashboardData
+        )
+
+        DashboardUIState.Error -> TODO()
     }
 }
 
@@ -35,6 +44,44 @@ internal fun LoadingSimulationScreen(
             horizontalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(text = stringResource(id = R.string.loading))
+        }
+    }
+}
+
+@Composable
+internal fun DashboardDataScreen(
+    modifier: Modifier = Modifier,
+    dashboardData: DashboardUIState.DashboardData
+) {
+    Column(modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(
+                text = stringResource(
+                    id = R.string.dashboard_sum_total_number_of_coins,
+                    dashboardData.sum
+                )
+            )
+        }
+    }
+}
+
+@Composable
+internal fun ErrorScreen(
+    modifier: Modifier = Modifier
+) {
+    Column(modifier) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.spacedBy(16.dp)
+        ) {
+            Text(text = stringResource(id = R.string.error))
         }
     }
 }

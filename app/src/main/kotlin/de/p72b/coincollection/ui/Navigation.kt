@@ -42,7 +42,7 @@ fun MainNavigation(
 
     NavHost(
         navController = navController,
-        startDestination = Navigator.NavTarget.Collection.label
+        startDestination = Navigator.NavTarget.Dashboard.label
     ) {
         composable(Navigator.NavTarget.Dashboard.label) {
             DashboardPage(
