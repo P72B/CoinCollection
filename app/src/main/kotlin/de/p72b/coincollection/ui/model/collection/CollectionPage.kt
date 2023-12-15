@@ -19,12 +19,12 @@ import de.p72b.coincollection.R
 fun CollectionPage(modifier: Modifier = Modifier, viewModel: CollectionViewModel = koinViewModel()) {
     val items by viewModel.uiState.collectAsStateWithLifecycle()
     when (items) {
-        CollectionUIState.Loading -> LoadingSimulationScreen(modifier)
+        CollectionUIState.Loading -> LoadingCollectionScreen(modifier)
     }
 }
 
 @Composable
-internal fun LoadingSimulationScreen(
+internal fun LoadingCollectionScreen(
     modifier: Modifier = Modifier
 ) {
     Column(modifier) {
